@@ -1,0 +1,50 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}
+    Přidání článku
+{% endblock %}
+
+{% block heading %}
+    Přidání článku
+{% endblock %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            {{ form_start(form) }}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_label(form.title,) }}
+                    {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form_label(form.link,) }}
+                    {{ form_widget(form.link, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group col-md-12">
+                    {{ form_label(form.content) }}
+                    {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group col-md-12">
+                    {{ form_label(form.mainPhoto) }}
+                    {{ form_widget(form.mainPhoto, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group col-md-12">
+                    {{ form_label(form.articlePhotos) }}
+                    {{ form_widget(form.articlePhotos, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Přidat článek</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
+
+    <script>
+        tinymce.init({
+            selector: '#article_content'
+        });
+    </script>
+{% endblock %}

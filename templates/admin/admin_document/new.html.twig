@@ -1,0 +1,29 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}
+    Přidání dokemntů
+{% endblock %}
+
+{% block heading %}
+    Přidání dokumentů
+{% endblock %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            {{ form_start(form) }}
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    {{ form_label(form.title) }}
+                    {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div id="document-dropzone" class="dropzone w-100"></div>
+                <div class="form-group col-md-12">
+                    {{ form_label(form.documents) }}
+                    {{ form_widget(form.documents, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <button id="send-btn" type="submit" class="btn btn-primary">Přidat dokumenty</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

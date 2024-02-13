@@ -1,0 +1,33 @@
+menu:
+  home: Domov
+  history: Historija
+  calendar: Kalendar akciji
+  projects: Projekti
+  contact: Kontakt
+
+hero:
+  title: MEDŽUSLOVJANSKE SPOLEČENSTVO
+  subtitle: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam
+
+history:
+  title: Historija společenstva
+  content: Korem ipsum dolor sit amet, consectetuer adipiscing elit. Praesent id justo in neque elementum ultrices. Nullam dapibus fermentum ipsum. Nunc auctor. Praesent dapibus. Mauris metus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas ipsum velit, consectetuer eu lobortis ut, dictum at dui. Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus purus, vel sagittis velit mauris vel metus. Praesent dapibus. Sed convallis magna eu sem. Duis risus. Etiam neque. Aliquam erat volutpat. Aenean id metus id velit ullamcorper pulvinar. Etiam bibendum elit eget erat. Donec ipsum massa, ullamcorper in, auctor et, scelerisque sed, est. Aliquam id dolor.
+    <br><br>
+    Fusce tellus. Morbi scelerisque luctus velit. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Curabitur vitae diam non enim vestibulum interdum. Etiam quis quam. Aliquam erat volutpat. Curabitur ligula sapien, pulvinar a vestibulum quis, facilisis vel sapien. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Nam libero tempore.
+
+calendar:
+  title: Kalendar akciji
+  program: Programa
+  showProgram: Izobraziti programa
+  hideProgram: Skryti programa
+
+article:
+  title: Projekti
+  createdAt: Stvorjenje
+  readMore: Projekti sajt
+
+contact:
+  title: Kontaktna dane
+  email: Email
+  phone: Telefon
+  address: Adresa

@@ -1,0 +1,94 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}
+    Editace akce
+{% endblock %}
+
+{% block heading %}
+    Editace akce
+{% endblock %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            {{ form_start(form) }}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_label(form.title,) }}
+                    {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form_label(form.link,) }}
+                    {{ form_widget(form.link, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group col-md-12">
+                    {{ form_label(form.content) }}
+                    {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group col-md-12">
+                    {{ form_label(form.mainPhoto) }}
+                    {{ form_widget(form.mainPhoto, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group col-md-12">
+                    {{ form_label(form.articlePhotos) }}
+                    {{ form_widget(form.articlePhotos, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            {% if article.mainPhoto %}
+            <h3>Náhledová fotografie</h3>
+            <div class="row mb-4">
+                <div class="col-md-3 text-center">
+                    <div>
+                        <a href="{{ asset(article.mainPhoto) }}" target="_blank">
+                            <img src="{{ asset(article.mainPhoto) }}" alt="fileIcon" style="width: 50px;">
+                            <br>
+                            Náhledová fotografie</a>
+                        <br>
+                    </div>
+                    <a href="{{ path('app_admin_article_main_photo_delete', {id: article.id}) }}" class="btn btn-danger text-center">
+                        <i class="fas fa-trash fa-sm fa-fw text-gray-400"></i>
+                        Smazat
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if article.mainPhoto and article.articlePhotos %}
+                <hr class="topbar-divider">
+            {% endif %}
+
+            {% if article.articlePhotos and hasArticlePhotos %}
+                <h3>Ostatní fotografie</h3>
+                <div class="row mb-4">
+                    {% for photo in article.articlePhotos %}
+                    <div class="col-md-3 text-center">
+                        <div>
+                            <a href="{{ asset(photo.filePath) }}" target="_blank">
+                                <img src="{{ asset(photo.filePath) }}" alt="{{ photo.fileName }}" style="width: 50px;">
+                                <br>
+                                {{ photo.fileName }}</a>
+                            <br>
+                        </div>
+                        <a href="{{ path('app_admin_article_photo_delete', {id: photo.id}) }}" class="btn btn-danger text-center">
+                            <i class="fas fa-trash fa-sm fa-fw text-gray-400"></i>
+                            Smazat
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary">Uložit akci</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
+
+    <script>
+        tinymce.init({
+            selector: '#article_content'
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}
+    Adresář kontaktů
+{% endblock %}
+
+{% block heading %}
+    Adresář kontaktů
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+{% endblock %}
+
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered dataTable" id="dataTable">
+                    <thead>
+                    <tr role="row">
+                        <th>Jméno</th>
+                        <th>Email</th>
+                        <th>Telefon</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Jméno</th>
+                        <th>Email</th>
+                        <th>Telefon</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.name }} {{ user.surname }}</td>
+                            <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+                            <td><a href="tel:{{ user.phone }}">{{ user.phone }}</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <!-- Page level plugins -->
+
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{ asset('adminAssets/js/datatable.js') }}"></script>
+{% endblock %}
+

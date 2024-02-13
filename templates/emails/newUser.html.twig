@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Emailová Šablona</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            margin: auto;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .header {
+            font-size: 24px;
+            color: #333333;
+        }
+        .content {
+            margin-top: 20px;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            text-align: center;
+            color: #aaaaaa;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">Byl jste přidán do zájmového spolku!</div>
+    <div class="content">
+        <p>Dobrý den, <strong>{{ user.name }} {{ user.surname }}</strong>,</p>
+        <p>Vaše přihlašovací údaje jsou:</p>
+        <ul>
+            <li>Email: <strong>{{ user.email }}</strong></li>
+            <li>Heslo: <strong>{{ password }}</strong></li>
+        </ul>
+    </div>
+    <div class="footer">
+        © 2024 Vaše Společnost. Všechna práva vyhrazena.
+    </div>
+</div>
+</body>
+</html>

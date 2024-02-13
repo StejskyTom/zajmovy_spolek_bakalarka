@@ -1,0 +1,89 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}
+    Seznam uživatelů
+{% endblock %}
+
+{% block heading %}
+    Seznam uživatelů
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+{% endblock %}
+
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered dataTable" id="dataTable">
+                    <thead>
+                    <tr role="row">
+                        <th>Jméno</th>
+                        <th>Email</th>
+                        <th>Telefon</th>
+                        <th class="no-sort pe-1 align-middle data-table-row-action">Akce</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Jméno</th>
+                        <th>Email</th>
+                        <th>Telefon</th>
+                        <th>Akce</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.name }} {{ user.surname }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.phone }}</td>
+                            <td>
+                                <a href="{{ path('app_admin_user_edit', {id: user.id}) }}" class="btn btn-info">
+                                    <i class="fas fa-edit fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Upravit</a>
+                                {% if app.user.id != user.id %}
+                                    <a class="btn delete-action btn-danger" data-toggle="modal" data-target="#deleteModal{{ user.id }}" href="{{ path('app_admin_user_delete', {id: user.id}) }}">
+                                        <i class="fas fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Smazat
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <div class="modal fade" id="deleteModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Opravdu se přejete smazat uživatele {{ user.email}} ?</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Zrušit</button>
+                                        <a class="btn btn-primary" href="{{ path('app_admin_user_delete', {id: user.id}) }}">Smazat</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <!-- Page level plugins -->
+
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{ asset('adminAssets/js/datatable.js') }}"></script>
+{% endblock %}
+

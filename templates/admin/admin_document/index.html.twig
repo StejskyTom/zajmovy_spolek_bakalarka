@@ -1,0 +1,98 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}
+    Seznam dokumentů
+{% endblock %}
+
+{% block heading %}
+    Seznam dokumentů
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+{% endblock %}
+
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered dataTable" id="dataTable">
+                    <thead>
+                    <tr role="row">
+                        <th>Název složky</th>
+                        <th>Dokumenty</th>
+                        <th>Vytvořeno</th>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th class="no-sort pe-1 align-middle data-table-row-action">Akce</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Název složky</th>
+                        <th>Dokumenty</th>
+                        <th>Vytvořeno</th>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th>Akce</th>
+                        {% endif %}
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for document in documents %}
+                        <tr>
+                            <td>{{ document.title }}</td>
+                            <td>
+                                {% for file in document.files %}
+                                    <a href="{{ asset(file.filePath) }}" target="_blank">{{ file.filename }}</a>
+                                    <br>
+                                {% endfor %}
+                            </td>
+                            <td>{{ document.createdAt|date("d.m.Y") }}</td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <td>
+                                <a href="{{ path('app_admin_document_edit', {id: document.id}) }}" class="btn btn-info">
+                                    <i class="fas fa-edit fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Upravit</a>
+                                <a class="btn delete-action btn-danger" data-toggle="modal" data-target="#deleteModal{{ document.id }}" href="{{ path('app_admin_document_delete', {id: document.id}) }}">
+                                    <i class="fas fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Smazat
+                                </a>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        <div class="modal fade" id="deleteModal{{ document.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Opravdu se přejete smazat složku {{ document.title}} ?</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Zrušit</button>
+                                        <a class="btn btn-primary" href="{{ path('app_admin_document_delete', {id: document.id}) }}">Smazat</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <!-- Page level plugins -->
+
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{ asset('adminAssets/js/datatable.js') }}"></script>
+{% endblock %}
+

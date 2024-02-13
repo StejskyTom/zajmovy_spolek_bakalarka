@@ -1,0 +1,50 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}
+    Přidání akce
+{% endblock %}
+
+{% block heading %}
+    Přidání akce
+{% endblock %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            {{ form_start(form) }}
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    {{ form_label(form.name,) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form_label(form.date) }}
+                    {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form_label(form.type) }}
+                    {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group col-md-12">
+                    {{ form_label(form.schedule) }}
+                    {{ form_widget(form.schedule, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group col-md-12">
+                    {{ form_label(form.photo) }}
+                    {{ form_widget(form.photo, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Přidat akci</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
+
+    <script>
+        tinymce.init({
+            selector: '#event_schedule'
+        });
+    </script>
+{% endblock %}

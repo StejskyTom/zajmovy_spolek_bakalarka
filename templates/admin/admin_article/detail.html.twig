@@ -1,0 +1,35 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}
+    {{ article.title }}
+{% endblock %}
+
+{% block heading %}
+{% endblock %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h5 class="m-0 font-weight-bold text-primary">{{ article.title }}</h5>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div>
+                    {% if article.mainPhoto %}
+                        <img class="float-left mr-4 mb-3" src="{{ asset(article.mainPhoto) }}" alt="" width="300px">
+                    {% endif %}
+                    <div>
+                        {{ article.content|raw }}
+                        <a href="{{ article.link }}" target="_blank">Zobrazit celý článek -></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                {% for photo in article.articlePhotos %}
+                    <div class="col-md-3 row" style="flex-direction: column; justify-content: center; align-items: center">
+                        <img class="img-fluid" src="{{ asset(photo.filePath) }}" alt="{{ photo.fileName }}" width="150px">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
