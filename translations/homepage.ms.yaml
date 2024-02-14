@@ -26,6 +26,9 @@ article:
   createdAt: Stvorjenje
   readMore: Projekti sajt
 
+documents:
+  title: Dokuemntaja
+
 contact:
   title: Kontaktna dane
   email: Email

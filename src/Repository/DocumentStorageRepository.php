@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\DocumentStorage;
+use App\Entity\Event;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,21 @@ class DocumentStorageRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @return DocumentStorage[]
+     */
+    public function getPublicDocumentStorageOrderByCreatedAt():array
+    {
+        return $this->createQueryBuilder('d')
+            ->innerJoin('d.files', 'f')
+            ->where('d.public = :isPublic')
+            ->setParameter('isPublic', true)
+            ->orderBy('d.createdAt', 'DESC')
+            ->addSelect('f')
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

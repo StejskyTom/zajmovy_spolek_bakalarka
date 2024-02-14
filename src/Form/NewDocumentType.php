@@ -4,7 +4,9 @@ namespace App\Form;
 
 use App\Entity\DocumentStorage;
 use App\Entity\User;
+use Symfony\Component\DependencyInjection\Compiler\CheckArgumentsValidityPass;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,6 +20,10 @@ class NewDocumentType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Titulek'
+            ])
+            ->add('public', CheckboxType::class, [
+                'label' => 'Veřejný',
+                'required' => false
             ])
             ->add('documents', FileType::class, [
                 'label' => 'Soubory',

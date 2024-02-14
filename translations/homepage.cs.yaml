@@ -26,6 +26,9 @@ article:
   createdAt: Vytvořeno
   readMore: Stránky projektu
 
+documents:
+  title: Dokumenty
+
 contact:
   title: Kontaktní údaje
   email: Email

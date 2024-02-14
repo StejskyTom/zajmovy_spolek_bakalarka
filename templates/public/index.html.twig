@@ -17,6 +17,10 @@
 
     <!-- Skript pro slider na akcích -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+
+    <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="{{ asset('assets/css/datatable.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
 </head>
 <body>
 {% set routeParams = app.request.attributes.get('_route_params') %}
@@ -88,7 +92,7 @@
             </div>
 
             {% if article.mainPhoto %}
-                <img src="{{ asset(article.mainPhoto) }}" alt="article-image">
+                <img src="{{ asset(article.mainPhoto) }}" alt="article-image" style="max-height: 100px">
             {% endif %}
             {{ article.content|raw }}
             <button class="More read-more-btn">Číst více</button>
@@ -105,6 +109,44 @@
             <hr>
             {% endif %}
         {% endfor %}
+    </div>
+</article>
+
+<article id="dokumenty" class="container">
+    <h2 class="text-center">{{ 'documents.title'|trans({}, 'homepage') }}</h2>
+    <div class="article-wrapper">
+        <div class="table-responsive">
+            <table class="table table-bordered dataTable" id="dataTable">
+                <thead>
+                <tr role="row">
+                    <th>Název složky</th>
+                    <th>Dokumenty</th>
+                    <th>Vytvořeno</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>Název složky</th>
+                    <th>Dokumenty</th>
+                    <th>Vytvořeno</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                {% for document in documents %}
+                    <tr>
+                        <td>{{ document.title }}</td>
+                        <td>
+                            {% for file in document.files %}
+                                <a href="{{ asset(file.filePath) }}" target="_blank">{{ file.filename }}</a>
+                                <br>
+                            {% endfor %}
+                        </td>
+                        <td>{{ document.createdAt|date("d.m.Y") }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </article>
 
@@ -144,6 +186,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="{{ asset('adminAssets/js/datatable.js') }}"></script>
 <script>
     var splide = new Splide('.splide', {
         perPage: 4,

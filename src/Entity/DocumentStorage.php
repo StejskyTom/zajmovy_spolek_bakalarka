@@ -39,6 +39,11 @@ class DocumentStorage
      */
     private $files;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $public = false;
+
     public function __construct()
     {
         $this->files = new ArrayCollection();
@@ -113,6 +118,18 @@ class DocumentStorage
                 $file->setDocumentStorage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isPublic(): bool
+    {
+        return $this->public;
+    }
+
+    public function setPublic(bool $isPublic): self
+    {
+        $this->public = $isPublic;
 
         return $this;
     }

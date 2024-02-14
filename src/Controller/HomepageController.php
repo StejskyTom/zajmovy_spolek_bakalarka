@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ArticleRepository;
+use App\Repository\DocumentStorageRepository;
 use App\Repository\EventRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,13 +16,17 @@ class HomepageController extends AbstractController
 
     protected $eventRepository;
 
+    protected $storageRepository;
+
     public function __construct(
         ArticleRepository $articleRepository,
-        EventRepository $eventRepository
+        EventRepository $eventRepository,
+        DocumentStorageRepository $storageRepository
     )
     {
         $this->articleRepository = $articleRepository;
         $this->eventRepository = $eventRepository;
+        $this->storageRepository = $storageRepository;
     }
 
     /**
@@ -31,11 +36,13 @@ class HomepageController extends AbstractController
     {
         $events = $this->eventRepository->getEventsOrderByDate();
         $articles = $this->articleRepository->getArticlesOrderByDate();
+        $storages = $this->storageRepository->getPublicDocumentStorageOrderByCreatedAt();
 
 
         return $this->render('public/index.html.twig', [
             'events' => $events,
-            'articles' => $articles
+            'articles' => $articles,
+            'documents' => $storages
         ]);
     }
 }
