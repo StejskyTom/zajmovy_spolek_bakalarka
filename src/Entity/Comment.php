@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Entity\Event;
+use App\Entity\User;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 

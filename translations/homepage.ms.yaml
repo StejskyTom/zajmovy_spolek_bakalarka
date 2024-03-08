@@ -2,7 +2,8 @@ menu:
   home: Domov
   history: Historija
   calendar: Kalendar akciji
-  projects: Projekti
+  articles: Člankovija
+  documents: Documents
   contact: Kontakt
 
 hero:
@@ -22,7 +23,7 @@ calendar:
   hideProgram: Skryti programa
 
 article:
-  title: Projekti
+  title: Clankovija
   createdAt: Stvorjenje
   readMore: Projekti sajt
 

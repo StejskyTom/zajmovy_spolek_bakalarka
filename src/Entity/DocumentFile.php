@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\DocumentStorage;
 use App\Repository\DocumentFileRepository;
 use Doctrine\ORM\Mapping as ORM;
 

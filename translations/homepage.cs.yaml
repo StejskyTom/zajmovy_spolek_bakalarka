@@ -2,7 +2,8 @@ menu:
   home: Domů
   history: Historie
   calendar: Kalendář akcí
-  projects: Projekty
+  articles: Články
+  documents: Dokumenty
   contact: Kontakt
 
 hero:
@@ -22,7 +23,7 @@ calendar:
   hideProgram: Skrýt program
 
 article:
-  title: Projekty
+  title: Články
   createdAt: Vytvořeno
   readMore: Stránky projektu
 

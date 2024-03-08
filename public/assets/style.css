@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     height: 100%;
     margin: 0;
@@ -39,6 +43,10 @@ hr {
 .topnav {
     overflow: hidden;
     background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
 }
 
 .topnav a {
@@ -77,7 +85,7 @@ hr {
         display: block;
     }
 
-    .topnav.responsive {position: relative;}
+    .topnav.responsive {position: fixed;}
     .topnav.responsive .icon {
         position: absolute;
         right: 0;

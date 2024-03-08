@@ -1,18 +1,14 @@
-<!doctype html>
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Zájmový spolek</title>
+{% extends 'base.html.twig' %}
 
-    <link rel="icon" type="image/png" href="{{ asset('assets/icons/favicon-96x96.png') }}">
+{% block title %}
+    Mezislovanský zájmový spolek
+{% endblock %}
+
+{% block stylesheets %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.cdnfonts.com/css/linux-biolinum" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
 
-    <!-- Skript pro zvětšení obrázků v projektech -->
+    <!-- Skript pro zvětšení obrázků ve článcích -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css">
 
     <!-- Skript pro slider na akcích -->
@@ -21,264 +17,174 @@
     <!-- Custom styles for this template-->
     <link rel="stylesheet" href="{{ asset('assets/css/datatable.css') }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
-</head>
-<body>
-{% set routeParams = app.request.attributes.get('_route_params') %}
-<nav class="topnav" id="myTopnav">
-    <a href="#home" class="active">{{ 'menu.home'|trans({}, 'homepage') }}</a>
-    <a href="#historie">{{ 'menu.history'|trans({}, 'homepage') }}</a>
-    <a href="#kalendar">{{ 'menu.calendar'|trans({}, 'homepage') }}</a>
-    <a href="#clanky">{{ 'menu.projects'|trans({}, 'homepage') }}</a>
-    <a href="#contact">{{ 'menu.contact'|trans({}, 'homepage') }}</a>
-    <a class="{% if app.request.locale == 'cs'%}active{% endif %}" href="{{ path('app_homepage', routeParams|merge({'_locale':'cs'})) }}">CS</a>
-    <a class="{% if app.request.locale == 'ms'%}active{% endif %}" href="{{ path('app_homepage', routeParams|merge({'_locale':'ms'})) }}">MS</a>
-    <a class="link-admin" href="{{ path('app_admin_contact') }}" target="_blank"><i class="fa-solid fa-user"></i></a>
-    <a href="javascript:void(0);" class="icon" onclick="menuToggle()">
-        <i class="fa fa-bars"></i>
-    </a>
-</nav>
+{% endblock %}
 
-    <div class="hero-image">
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+
+    <script src="{{ asset('adminAssets/js/datatable.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <article id="homeSection" data-section="home" class="hero-image">
         <div class="hero-text">
             <h1>{{ 'hero.title'|trans({}, 'homepage') }}</h1>
             <p>{{ 'hero.subtitle'|trans({}, 'homepage') }}</p>
         </div>
-    </div>
+    </article>
 
-<article id="historie" class="container">
-    <div class="history-wrapper">
-        <section class="history-text">
-            <h2>{{ 'history.title'|trans({}, 'homepage') }}</h2>
-            <p>
-                {{ 'history.content'|trans({}, 'homepage')|raw }}
-            </p>
-        </section>
-        <section class="history-image">
-            <img src="https://picsum.photos/200" alt="history-image">
-        </section>
-    </div>
-</article>
+    <article id="historieSection" data-section="historie" class="container">
+        <div class="history-wrapper">
+            <section class="history-text">
+                <h2>{{ 'history.title'|trans({}, 'homepage') }}</h2>
+                <p>
+                    {{ 'history.content'|trans({}, 'homepage')|raw }}
+                </p>
+            </section>
+            <section class="history-image">
+                <img src="https://picsum.photos/200" alt="history-image">
+            </section>
+        </div>
+    </article>
 
-<article id="kalendar" class="container">
-    <h2 class="text-center">{{ 'calendar.title'|trans({}, 'homepage') }}</h2>
-    <div class="splide">
-        <div class="splide__track">
-            <ul class="splide__list">
-                {% for event in events %}
-                    <section class="event splide__slide">
-                        {% if event.photo %}
-                            <img src="{{ asset(event.photo) }}" alt="{{ event.name }}">
-                        {% endif %}
-                        <h3>{{ event.name }}</h3>
-                        <p>{{ event.date|date('d.m.Y') }}</p>
-                        <div class="event-schedule" style="display: none">
+    <article id="kalendarSection" data-section="kalendar" class="container">
+        <h2 class="text-center">{{ 'calendar.title'|trans({}, 'homepage') }}</h2>
+        <div class="splide">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    {% for event in events %}
+                        <section class="event splide__slide">
+                            {% if event.photo %}
+                                <img src="{{ asset(event.photo) }}" alt="{{ event.name }}">
+                            {% endif %}
+                            <h3>{{ event.name }}</h3>
+                            <p>{{ event.date|date('d.m.Y') }}</p>
+                            <div class="event-schedule" style="display: none">
                                 <p class="event-schedule-title">{{ 'calendar.program'|trans({}, 'homepage') }}</p>
                                 {{ event.schedule|raw }}
-                        </div>
-                        <button class="event-schedule-btn read-more-btn">{{ 'calendar.showProgram'|trans({}, 'homepage') }}</button>
-                    </section>
-                {% endfor %}
-            </ul>
+                            </div>
+                            <button class="event-schedule-btn read-more-btn">{{ 'calendar.showProgram'|trans({}, 'homepage') }}</button>
+                        </section>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
-    </div>
-</article>
+    </article>
 
-<article id="clanky" class="container">
-    <h2 class="text-center">{{ 'article.title'|trans({}, 'homepage') }}</h2>
-    <div class="article-wrapper">
-        {% for article in articles %}
-        <section class="article">
-            <div class="article-title-row">
-                <h3>{{ article.title }}</h3>
-                <p>{{ 'article.createdAt'|trans({}, 'homepage') }}: {{ article.createdAt|date('d.m.Y') }}</p>
-            </div>
+    <article id="clankySection" data-section="clanky" class="container">
+        <h2 class="text-center">{{ 'article.title'|trans({}, 'homepage') }}</h2>
+        <div class="article-wrapper">
+            {% for article in articles %}
+                <section class="article">
+                    <div class="article-title-row">
+                        <h3>{{ article.title }}</h3>
+                        <p>{{ 'article.createdAt'|trans({}, 'homepage') }}: {{ article.createdAt|date('d.m.Y') }}</p>
+                    </div>
 
-            {% if article.mainPhoto %}
-                <img src="{{ asset(article.mainPhoto) }}" alt="article-image" style="max-height: 100px">
-            {% endif %}
-            {{ article.content|raw }}
-            <button class="More read-more-btn">Číst více</button>
-            <a style="display: inline" href="{{ article.link }}" target="_blank">{{ 'article.readMore'|trans({}, 'homepage') }} >></a>
-            <div class="article-photo-row">
-                {% for photo in article.articlePhotos %}
-                    <a href="{{ asset(photo.filePath) }}" data-lightbox="photos">
-                        <img class="img-fluid gallery-img" src="{{ asset(photo.filePath) }}" alt="{{ photo.fileName }}">
-                    </a>
-                {% endfor %}
-            </div>
-        </section>
-            {% if loop.last == false %}
-            <hr>
-            {% endif %}
-        {% endfor %}
-    </div>
-</article>
+                    {% if article.mainPhoto %}
+                        <img src="{{ asset(article.mainPhoto) }}" alt="article-image" style="max-height: 100px">
+                    {% endif %}
+                    {{ article.content|raw }}
+                    <button class="More read-more-btn">Číst více</button>
+                    <a style="display: inline" href="{{ article.link }}" target="_blank">{{ 'article.readMore'|trans({}, 'homepage') }} >></a>
+                    <div class="article-photo-row">
+                        {% for photo in article.articlePhotos %}
+                            <a href="{{ asset(photo.filePath) }}" data-lightbox="photos">
+                                <img class="img-fluid gallery-img" src="{{ asset(photo.filePath) }}" alt="{{ photo.fileName }}">
+                            </a>
+                        {% endfor %}
+                    </div>
+                </section>
+                {% if loop.last == false %}
+                    <hr>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </article>
 
-<article id="dokumenty" class="container">
-    <h2 class="text-center">{{ 'documents.title'|trans({}, 'homepage') }}</h2>
-    <div class="article-wrapper">
-        <div class="table-responsive">
-            <table class="table table-bordered dataTable" id="dataTable">
-                <thead>
-                <tr role="row">
-                    <th>Název složky</th>
-                    <th>Dokumenty</th>
-                    <th>Vytvořeno</th>
-                </tr>
-                </thead>
-                <tfoot>
-                <tr>
-                    <th>Název složky</th>
-                    <th>Dokumenty</th>
-                    <th>Vytvořeno</th>
-                </tr>
-                </tfoot>
-                <tbody>
-                {% for document in documents %}
-                    <tr>
-                        <td>{{ document.title }}</td>
-                        <td>
-                            {% for file in document.files %}
-                                <a href="{{ asset(file.filePath) }}" target="_blank">{{ file.filename }}</a>
-                                <br>
-                            {% endfor %}
-                        </td>
-                        <td>{{ document.createdAt|date("d.m.Y") }}</td>
+    <article id="dokumentySection" data-section="dokumenty" class="container">
+        <h2 class="text-center">{{ 'documents.title'|trans({}, 'homepage') }}</h2>
+        <div class="article-wrapper">
+            <div class="table-responsive">
+                <table class="table table-bordered dataTable" id="dataTable">
+                    <thead>
+                    <tr role="row">
+                        <th>Název složky</th>
+                        <th>Dokumenty</th>
+                        <th>Vytvořeno</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-</article>
-
-<div style="background-color: #10498A">
-    <article id="contact" class="container">
-        <div class="contact-wrapper">
-            <div class="contact-form">
-                <div style="width: 100%"><iframe width="100%" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=500&amp;hl=en&amp;q=H%C3%A1lkova%2043+(M%C5%AFj%20domov)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe></div>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Název složky</th>
+                        <th>Dokumenty</th>
+                        <th>Vytvořeno</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for document in documents %}
+                        <tr>
+                            <td>{{ document.title }}</td>
+                            <td>
+                                {% for file in document.files %}
+                                    <a href="{{ asset(file.filePath) }}" target="_blank">{{ file.filename }}</a>
+                                    <br>
+                                {% endfor %}
+                            </td>
+                            <td>{{ document.createdAt|date("d.m.Y") }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
-            <div class="contact-info">
-                <div style="text-align: left">
-                    <h2>{{ 'contact.title'|trans({}, 'homepage') }}</h2>
-                    <p>{{ 'contact.email'|trans({}, 'homepage') }}: <a href="mailto:info@example.com">merunka@interslavic.cz</a></p>
-                    <p>{{ 'contact.phone'|trans({}, 'homepage') }}: <a href="tel:+420123123123">+420 123 321 123</a></p>
-                    <p>{{ 'contact.address'|trans({}, 'homepage') }}: Ulice 123, Město, Země</p>
+        </div>
+    </article>
+
+    <div style="background-color: #10498A">
+        <article id="contactSection" data-section="contact" class="container">
+            <div class="contact-wrapper">
+                <div class="contact-form">
+                    <div style="width: 100%"><iframe width="100%" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=500&amp;hl=en&amp;q=H%C3%A1lkova%2043+(M%C5%AFj%20domov)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe></div>
+                </div>
+                <div class="contact-info">
+                    <div style="text-align: left">
+                        <h2>{{ 'contact.title'|trans({}, 'homepage') }}</h2>
+                        <p>{{ 'contact.email'|trans({}, 'homepage') }}: <a href="mailto:info@example.com">merunka@interslavic.cz</a></p>
+                        <p>{{ 'contact.phone'|trans({}, 'homepage') }}: <a href="tel:+420123123123">+420 123 321 123</a></p>
+                        <p>{{ 'contact.address'|trans({}, 'homepage') }}: Ulice 123, Město, Země</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </article>
-</div>
+        </article>
+    </div>
+{% endblock %}
 
-<footer>
-    <article class="container footer-wrapper">
-        <section>
-            <p><span class="bold">Zodpovědná osoba:</span> Tomáš Stejskal</p>
-        </section>
-        <section>
-            <p><span class="bold">IČO:</span> 0102038202</p>
-        </section>
-        <section>
-            <p><span class="bold">Bankovní spojení:</span> 111222333/0600</p>
-        </section>
-    </article>
-</footer>
+{% block endJavascripts %}
+    <script src="{{ asset('assets/menu.js') }}"></script>
+    <script src="{{ asset('assets/article.js') }}"></script>
+    <script src="{{ asset('assets/scroll.js') }}"></script>
+    <script src="{{ asset('assets/splideInit.js') }}"></script>
 
+    <script>
+        document.querySelectorAll('button.event-schedule-btn').forEach(bttn=>{
+            bttn.dataset.state=0;
+            bttn.addEventListener('click',function(e){
+                let div=this.previousElementSibling;
 
-<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
+                if (this.dataset.state == 1) {
+                    div.style.display = "none";
+                } else {
+                    div.style.display = "";
+                }
 
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
-
-<!-- Page level custom scripts -->
-<script src="{{ asset('adminAssets/js/datatable.js') }}"></script>
-<script>
-    var splide = new Splide('.splide', {
-        perPage: 4,
-        perMove: 1,
-        rewind : true,
-        pagination: false,
-        breakpoints: {
-            640: {
-                perPage: 2,
-            },
-            520: {
-                perPage: 1,
-            },
-        }
-    });
-
-    splide.mount();
-</script>
-<script>
-    function menuToggle() {
-        var x = document.getElementById("myTopnav");
-        if (x.className === "topnav") {
-            x.className += " responsive";
-        } else {
-            x.className = "topnav";
-        }
-    }
-
-
-    document.querySelectorAll('button.event-schedule-btn').forEach(bttn=>{
-        bttn.dataset.state=0;
-        bttn.addEventListener('click',function(e){
-            let div=this.previousElementSibling;
-
-            if (this.dataset.state == 1) {
-                div.style.display = "none";
-            } else {
-                div.style.display = "";
-            }
-
-            this.innerHTML=this.dataset.state==1 ? '{{ 'calendar.showProgram'|trans({}, 'homepage') }}' : '{{ 'calendar.hideProgram'|trans({}, 'homepage') }}';
-            this.dataset.state= 1-this.dataset.state;
-        })
-    });
-
-    document.querySelectorAll('button.More').forEach(bttn=>{
-        bttn.dataset.state=0;
-        bttn.addEventListener('click',function(e){
-
-            let firstP = this.closest('.article').getElementsByTagName('p')[1];
-            let anotherP = this.closest('.article').querySelectorAll('p:nth-child(n+4)')
-            let articlePhotos = this.closest('.article').getElementsByClassName('article-photo-row')[0]
-
-            if (this.dataset.state === '1') {
-                anotherP.forEach(p => {
-                    p.style.display = "none";
-                });
-                articlePhotos.style.display = "none";
-            } else {
-                anotherP.forEach(p => {
-                    p.style.display = "";
-                });
-                articlePhotos.style.display = "";
-            }
-
-            if (anotherP.length > 0 && articlePhotos.innerHTML.trim() !== "") {
-                this.innerHTML = this.dataset.state === '1' ? 'Číst více...' : 'Číst méně...';
-            }
-            this.dataset.state = 1 - this.dataset.state;
-        })
-    });
-
-    document.querySelectorAll('.More').forEach(btn => {
-        let anotherP = btn.closest('.article').querySelectorAll('p:nth-child(n+4)')
-        let articlePhotos = btn.closest('.article').getElementsByClassName('article-photo-row')[0];
-
-        anotherP.forEach(p=> {
-            p.style.display = "none";
-        })
-        articlePhotos.style.display = "none";
-
-        if (anotherP.length === 0 && articlePhotos.innerHTML.trim() === "") {
-            btn.style.display = "none";
-        }
-    })
-</script>
-</body>
-</html>
+                this.innerHTML= this.dataset.state == 1 ? '{{ 'calendar.showProgram'|trans({}, 'homepage') }}' : '{{ 'calendar.hideProgram'|trans({}, 'homepage') }}';
+                this.dataset.state= 1-this.dataset.state;
+            })
+        });
+    </script>
+{% endblock %}
