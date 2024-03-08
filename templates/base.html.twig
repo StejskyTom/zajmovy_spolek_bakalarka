@@ -23,8 +23,8 @@
             <a id="clanky" href="#clankySection">{{ 'menu.articles'|trans({}, 'homepage') }}</a>
             <a id="dokumenty" href="#dokumentySection">{{ 'menu.documents'|trans({}, 'homepage') }}</a>
             <a id="contact" href="#contactSection">{{ 'menu.contact'|trans({}, 'homepage') }}</a>
-            <a class="{% if app.request.locale == 'cs'%}active{% endif %}" href="{{ path('app_homepage', routeParams|merge({'_locale':'cs'})) }}">CS</a>
-            <a class="{% if app.request.locale == 'ms'%}active{% endif %}" href="{{ path('app_homepage', routeParams|merge({'_locale':'ms'})) }}">MS</a>
+            <a class="{% if app.request.locale == 'cs'%}active{% endif %} lang" href="{{ path('app_homepage', routeParams|merge({'_locale':'cs'})) }}">CS</a>
+            <a class="{% if app.request.locale == 'ms'%}active{% endif %} lang" href="{{ path('app_homepage', routeParams|merge({'_locale':'ms'})) }}">MS</a>
             <a class="link-admin" href="{{ path('app_admin_contact') }}" target="_blank"><i class="fa-solid fa-user"></i></a>
             <a href="javascript:void(0);" class="icon" onclick="menuToggle()">
                 <i class="fa fa-bars"></i>
