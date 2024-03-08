@@ -31,6 +31,14 @@
                     {{ form_widget(form.phone, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
+            <div class="form-row">
+                {% for role in form.roles %}
+                    <div class="form-check">
+                        {{ form_widget(role, {'attr': {'class': 'form-check-input'}}) }}
+                        {{ form_label(role) }}
+                    </div>
+                {% endfor %}
+            </div>
             <button type="submit" class="btn btn-primary">Přidat uživatele</button>
             {{ form_end(form) }}
         </div>

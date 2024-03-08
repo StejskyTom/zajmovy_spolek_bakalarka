@@ -44,7 +44,7 @@
                             <td>{{ article.title }}</td>
                             <td>{{ article.updatedAt|date("d.m.Y") }}</td>
                             <td>
-                                {% if is_granted('ROLE_ADMIN') %}
+                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
                                 <a href="{{ path('app_admin_article_edit', {id: article.id}) }}" class="btn btn-info">
                                     <i class="fas fa-edit fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Upravit</a>

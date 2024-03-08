@@ -133,6 +133,37 @@
             </li>
         {% endif %}
 
+        {% if is_granted('ROLE_EDITOR') %}
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Redaktorská část
+            </div>
+
+            <!-- Správa článků -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseArticles"
+                   aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Správa článků</span>
+                </a>
+                <div id="collapseArticles"
+                     class="collapse
+                {% if app.request.get('_route') == 'app_admin_article_new' or app.request.get('_route') == 'app_admin_article' %}
+                show
+                {% endif %}"
+                     aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Správa článků</h6>
+                        <a class="collapse-item {% if app.request.get('_route') == 'app_admin_article_new' %}active{% endif %}" href="{{ path('app_admin_article_new') }}">Přidat článek</a>
+                        <a class="collapse-item {% if app.request.get('_route') == 'app_admin_article' %}active{% endif %}" href="{{ path('app_admin_article') }}">Seznam článků</a>
+                    </div>
+                </div>
+            </li>
+        {% endif %}
+
         <!-- Divider -->
         <hr class="sidebar-divider">
         <!-- Heading -->

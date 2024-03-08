@@ -15,15 +15,21 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    public const ROLE_USER = 'ROLE_USER';
+    public const ROLE_EDITOR = 'ROLE_EDITOR';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
+
+    public const ROLES_CHOICES = [
+        'Uživatel' => self::ROLE_USER,
+        'Redaktor' => self::ROLE_EDITOR,
+        'Administrátor' => self::ROLE_ADMIN
+    ];
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
         $this->comments = new ArrayCollection();
     }
-
-    public const ROLE_USER = ['ROLE_USER'];
-    public const ROLE_ADMIN = ['ROLE_ADMIN','ROLE_USER'];
 
     /**
      * @ORM\Id

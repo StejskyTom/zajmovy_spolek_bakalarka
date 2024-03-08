@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,6 +28,14 @@ class NewUserType extends AbstractType
                 'label' => 'Telefon',
                 'required' => false
             ])
+            ->add(
+                'roles', ChoiceType::class, [
+                    'label' => 'Role',
+                    'choices' => User::ROLES_CHOICES,
+                    'expanded' => true,
+                    'multiple' => true,
+                ]
+            )
         ;
     }
 

@@ -70,7 +70,6 @@ class AdminUserController extends AbstractController
             $password = PasswordHelper::generatePassword();
             $hashedPassword = $this->passwordHasher->hashPassword($user,$password);
 
-            $user->setRoles(User::ROLE_USER);
             $user->setPassword($hashedPassword);
             $this->entityManager->persist($user);
 
