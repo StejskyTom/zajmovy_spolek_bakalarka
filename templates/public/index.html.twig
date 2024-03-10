@@ -22,7 +22,6 @@
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
 
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
@@ -87,7 +86,9 @@
                     </div>
 
                     {% if article.mainPhoto %}
-                        <img src="{{ asset(article.mainPhoto) }}" alt="article-image" style="max-height: 100px">
+                        <a href="{{ asset(article.mainPhoto) }}" data-lightbox="photos" style="float: left; margin-right: 1em">
+                            <img src="{{ asset(article.mainPhoto) }}" alt="article-image" style="max-height: 100px">
+                        </a>
                     {% endif %}
                     {{ article.content|raw }}
                     <button class="More read-more-btn">Číst více</button>
@@ -165,6 +166,8 @@
 {% endblock %}
 
 {% block endJavascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
+
     <script src="{{ asset('assets/menu.js') }}"></script>
     <script src="{{ asset('assets/article.js') }}"></script>
     <script src="{{ asset('assets/scroll.js') }}"></script>

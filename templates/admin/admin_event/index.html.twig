@@ -48,7 +48,7 @@
                                 <a href="{{ path('app_admin_event_edit', {id: event.id}) }}" class="btn btn-info">
                                     <i class="fas fa-edit fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Upravit</a>
-                                <a class="btn delete-action btn-danger" data-toggle="modal" data-target="#deleteModal"{{ event.id}} href="{{ path('app_admin_event_delete', {id: event.id}) }}">
+                                <a class="btn delete-action btn-danger" data-toggle="modal" data-target="#deleteModal{{ event.id}}" href="{{ path('app_admin_event_delete', {id: event.id}) }}">
                                     <i class="fas fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Smazat
                                 </a>
@@ -58,7 +58,6 @@
                                     Detail
                                 </a>
                             </td>
-
                         </tr>
                         <div class="modal fade" id="deleteModal{{ event.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
                              aria-hidden="true">

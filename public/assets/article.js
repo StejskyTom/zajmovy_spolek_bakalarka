@@ -18,7 +18,7 @@ document.querySelectorAll('button.More').forEach(bttn=>{
             articlePhotos.style.display = "";
         }
 
-        if (anotherP.length > 0 && articlePhotos.innerHTML.trim() !== "") {
+        if (anotherP.length > 0 || articlePhotos.innerHTML.trim() !== "") {
             this.innerHTML = this.dataset.state === '1' ? 'Číst více...' : 'Číst méně...';
         }
         this.dataset.state = 1 - this.dataset.state;
