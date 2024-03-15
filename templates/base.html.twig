@@ -8,6 +8,9 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" type="image/png" href="{{ asset('assets/icons/favicon-96x96.png') }}">
         <link href="https://fonts.cdnfonts.com/css/linux-biolinum" rel="stylesheet">
+
+        <!-- Tento link na bootstrap je na stránce pouze kvůli části jiného studenta (placení v bitcoinu) na přání pana Merunky -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         {% block stylesheets %}
         {% endblock %}
 
@@ -43,6 +46,10 @@
                 </section>
                 <section>
                     <p><span class="bold">Bankovní spojení:</span> 111222333/0600</p>
+                </section>
+                <!-- Proklik na část od jiného studenta na přání pana Merunky -->
+                <section>
+                    <a href="{{ asset('bitcoin/form.php') }}" class="btn btn-lg btn-dark"><img src="{{ asset('assets/bitcoin.svg.png') }}" alt="bitcoin logo" style="width: 30px">Podpořte nás v BTC</a>
                 </section>
             </article>
         </footer>

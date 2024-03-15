@@ -1,5 +1,18 @@
 # Web pro zájmový spolek
 
+## Přístupy
+### Administrátor
+- admin@admin.cz
+- sjXp3LTOWB
+
+### Redaktor
+- editor@editor.cz
+- AaFkyxtox6
+
+## Uživatel
+- user@user.cz
+- IYLAHTYmmc
+
 ## Nastavení
 - Vytvořte sobor `.env.local` zkopírovaný z `.env`
 - Nastavte `DATABASE_URL` proměnnou
